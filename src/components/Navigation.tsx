@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCompilerStore } from '../state/compilerStore';
 import type { StageIndex } from '../state/compilerStore';
-import { Code2, AlignLeft, TreeDeciduous, ShieldCheck, FileJson, Zap, Cpu, TerminalSquare, Sun, Moon, BookOpen } from 'lucide-react';
+import { Code2, AlignLeft, TreeDeciduous, ShieldCheck, FileJson, Zap, Cpu, TerminalSquare, Sun, Moon, BookOpen, Menu, X } from 'lucide-react';
 import styles from './Navigation.module.css';
 
 const STAGES = [
@@ -18,6 +18,7 @@ const STAGES = [
 export const Navigation: React.FC = () => {
   const { currentStageIndex, setStageIndex, viewMode, setViewMode } = useCompilerStore();
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -28,7 +29,15 @@ export const Navigation: React.FC = () => {
   }, [isDarkMode]);
 
   return (
-    <nav className={styles.navContainer}>
+    <nav className={`${styles.navContainer} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
+      <button 
+        className={styles.mobileNavToggle} 
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        aria-label="Toggle navigation"
+      >
+        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+
       <div className={styles.header}>
         <h1 className={styles.title}>Compiler Construction Visualizer</h1>
         <span className={styles.subtitle}>Visualize the journey of your C++ code through 7 stages of a compiler</span>
@@ -41,7 +50,10 @@ export const Navigation: React.FC = () => {
             <React.Fragment key={stage.index}>
               <button 
                 className={`${styles.stageItem} ${isActive ? styles.active : ''}`}
-                onClick={() => setStageIndex(stage.index)}
+                onClick={() => {
+                  setStageIndex(stage.index);
+                  setIsMobileMenuOpen(false);
+                }}
               >
                 <span className={styles.stageNumber}>{stage.index + 1}</span>
                 <stage.icon className={styles.stageIcon} size={20} strokeWidth={isActive ? 2.5 : 2} />
@@ -56,20 +68,24 @@ export const Navigation: React.FC = () => {
       <div className={styles.actions}>
         <button
           className={`${styles.slideBtn} ${viewMode === 'slides' ? styles.slideBtnActive : ''}`}
-          onClick={() => setViewMode('slides')}
+          onClick={() => {
+            setViewMode('slides');
+            setIsMobileMenuOpen(false);
+          }}
           title="See the whole slide"
         >
           <BookOpen size={20} />
           <span>Course Notes</span>
         </button>
-        <button 
-          className={styles.themeToggle} 
-          aria-label="Toggle theme"
-          onClick={() => setIsDarkMode(prev => !prev)}
-        >
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
       </div>
+
+      <button 
+        className={styles.themeToggle} 
+        aria-label="Toggle theme"
+        onClick={() => setIsDarkMode(prev => !prev)}
+      >
+        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
     </nav>
   );
 };

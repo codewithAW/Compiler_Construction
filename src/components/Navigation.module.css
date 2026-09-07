@@ -15,37 +15,13 @@
   gap: 1rem;
 }
 
-@media (max-width: 1024px) {
-  .navContainer {
-    padding: 1rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  
-  .stages {
-    order: 3;
-    width: 100%;
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-  }
-  .header {
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-  }
-  .title {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .stageItem {
-    padding: 0.25rem 0.5rem;
-  }
-  .stageName {
-    font-size: 0.65rem;
-  }
+.mobileNavToggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  cursor: pointer;
+  padding: 0.5rem;
 }
 
 .header {
@@ -179,4 +155,88 @@
 .themeToggle:hover {
   color: var(--primary);
   transform: scale(1.05);
+}
+
+/* MEDIA QUERIES GO AT THE END */
+
+@media (max-width: 1024px) {
+  .navContainer {
+    padding: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  
+  .header {
+    flex: 1;
+    text-align: center;
+    margin: 0 1rem;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .subtitle {
+    display: none; /* Hide subtitle on mobile for space */
+  }
+
+  .mobileNavToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    order: -1; /* Ensure it's on the left */
+  }
+  
+  .stages, .actions {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    order: 4; /* Below the top bar */
+  }
+  
+  .mobileMenuOpen .stages,
+  .mobileMenuOpen .actions {
+    display: flex;
+  }
+
+  .stageItem {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .stageIcon {
+    margin-bottom: 0;
+  }
+
+  .connector {
+    display: none;
+  }
+
+  .actions {
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--glass-border);
+  }
+
+  .slideBtn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .stageItem {
+    padding: 0.75rem 1rem;
+  }
+  .stageName {
+    font-size: 0.85rem;
+  }
+  .header {
+    margin: 0;
+  }
 }
