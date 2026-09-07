@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { slidesText } from '../data/slidesText';
+import { Menu, X } from 'lucide-react';
 import styles from './CourseNotesView.module.css';
 
 interface Chapter {
@@ -9,6 +10,8 @@ interface Chapter {
 }
 
 export const CourseNotesView: React.FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   const chapters = useMemo(() => {
     const lines = slidesText.split('\n').filter(line => line.trim().length > 0);
     let parsedChapters: Chapter[] = [];
@@ -52,16 +55,31 @@ export const CourseNotesView: React.FC = () => {
 
   const activeChapter = chapters.find(c => c.id === activeChapterId) || chapters[0];
 
+  const handleChapterClick = (id: string) => {
+    setActiveChapterId(id);
+    setIsSidebarOpen(false); // Close sidebar on mobile when a chapter is selected
+  };
+
   return (
     <div className={styles.container}>
-      <aside className={styles.sidebar}>
+      {/* Mobile Toggle Button */}
+      <button 
+        className={styles.mobileToggleBtn}
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+        aria-label="Toggle Course Navigation"
+      >
+        {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+        <span className={styles.mobileToggleText}>Chapters</span>
+      </button>
+
+      <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
         <h2 className={styles.sidebarTitle}>Course Notes</h2>
         <ul className={styles.chapterList}>
           {chapters.map(chapter => (
             <li key={chapter.id}>
               <button
                 className={`${styles.chapterBtn} ${activeChapterId === chapter.id ? styles.active : ''}`}
-                onClick={() => setActiveChapterId(chapter.id)}
+                onClick={() => handleChapterClick(chapter.id)}
               >
                 {chapter.title}
               </button>
