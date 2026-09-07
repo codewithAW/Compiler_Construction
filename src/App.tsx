@@ -2,6 +2,7 @@
 import { Navigation } from './components/Navigation';
 import { PipelineView } from './components/PipelineView';
 import { FullStageView } from './components/FullStageView';
+import { CourseNotesView } from './components/CourseNotesView';
 import { useCompilerStore } from './state/compilerStore';
 
 function App() {
@@ -19,7 +20,13 @@ function App() {
         <Navigation />
         
         <main style={{ flex: 1, padding: 0, overflow: 'hidden' }}>
-          {viewMode === 'pipeline' ? <PipelineView /> : <FullStageView />}
+          {viewMode === 'pipeline' ? (
+            <PipelineView />
+          ) : viewMode === 'slides' ? (
+            <CourseNotesView />
+          ) : (
+            <FullStageView />
+          )}
         </main>
       </div>
     </>

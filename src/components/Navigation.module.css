@@ -17,21 +17,16 @@
 
 @media (max-width: 1024px) {
   .navContainer {
-    flex-direction: column;
-    padding: 0.5rem 1rem;
-    gap: 0.5rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
+  
   .stages {
+    order: 3;
     width: 100%;
     overflow-x: auto;
     padding-bottom: 0.5rem;
-    justify-content: flex-start;
-    /* Hide scrollbar for cleaner look on mobile */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  }
-  .stages::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
   }
   .header {
     flex-direction: row;
@@ -132,6 +127,44 @@
   margin: 0 0.25rem;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slideBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.slideBtn:hover {
+  background: var(--item-bg-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+  color: var(--primary);
+}
+
+.slideBtnActive {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+}
+.slideBtnActive:hover {
+  background: var(--primary);
+  color: white;
+}
+
 .themeToggle {
   padding: 0.75rem;
   border-radius: 50%;
@@ -139,6 +172,8 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   color: var(--text-muted);
   transition: var(--transition-fast);
+  border: none;
+  cursor: pointer;
 }
 
 .themeToggle:hover {

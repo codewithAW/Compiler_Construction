@@ -14,7 +14,7 @@ import type { ExecutionState } from '../compiler/executor/executor';
 import { execute } from '../compiler/executor/executor';
 
 export type StageIndex = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
-export type ViewMode = 'pipeline' | 'full';
+export type ViewMode = 'pipeline' | 'full' | 'slides';
 
 export interface CompilerState {
   currentStageIndex: StageIndex;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useCompilerStore } from '../state/compilerStore';
 import type { StageIndex } from '../state/compilerStore';
-import { Code2, AlignLeft, TreeDeciduous, ShieldCheck, FileJson, Zap, Cpu, TerminalSquare, Sun, Moon } from 'lucide-react';
+import { Code2, AlignLeft, TreeDeciduous, ShieldCheck, FileJson, Zap, Cpu, TerminalSquare, Sun, Moon, BookOpen } from 'lucide-react';
 import styles from './Navigation.module.css';
 
 const STAGES = [
@@ -16,7 +16,7 @@ const STAGES = [
 ];
 
 export const Navigation: React.FC = () => {
-  const { currentStageIndex, setStageIndex } = useCompilerStore();
+  const { currentStageIndex, setStageIndex, viewMode, setViewMode } = useCompilerStore();
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
@@ -36,7 +36,7 @@ export const Navigation: React.FC = () => {
 
       <div className={styles.stages}>
         {STAGES.map((stage, i) => {
-          const isActive = currentStageIndex === stage.index;
+          const isActive = viewMode !== 'slides' && currentStageIndex === stage.index;
           return (
             <React.Fragment key={stage.index}>
               <button 
@@ -53,13 +53,23 @@ export const Navigation: React.FC = () => {
         })}
       </div>
 
-      <button 
-        className={styles.themeToggle} 
-        aria-label="Toggle theme"
-        onClick={() => setIsDarkMode(prev => !prev)}
-      >
-        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-      </button>
+      <div className={styles.actions}>
+        <button
+          className={`${styles.slideBtn} ${viewMode === 'slides' ? styles.slideBtnActive : ''}`}
+          onClick={() => setViewMode('slides')}
+          title="See the whole slide"
+        >
+          <BookOpen size={20} />
+          <span>Course Notes</span>
+        </button>
+        <button 
+          className={styles.themeToggle} 
+          aria-label="Toggle theme"
+          onClick={() => setIsDarkMode(prev => !prev)}
+        >
+          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+      </div>
     </nav>
   );
 };
