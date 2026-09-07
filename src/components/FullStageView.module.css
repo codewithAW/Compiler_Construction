@@ -408,3 +408,42 @@
   background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
 }
+@media (max-width: 768px) {
+  .header {
+    padding: 0.5rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .titleArea {
+    padding: 0 1rem 0.5rem;
+  }
+  .stageTitle {
+    font-size: 1.1rem;
+  }
+  .visSection {
+    display: none;
+  }
+  .content {
+    padding: 0 1rem 1rem;
+  }
+  .rowLayout {
+    flex-direction: column;
+    padding: 0 1rem 1rem;
+    gap: 1rem;
+  }
+  .rowPanel {
+    flex: none;
+    height: 50vh;
+  }
+  .rowPanel:not(.rowPanel2D) {
+    display: none;
+  }
+  .contentWithExpand {
+    padding: 0 1rem 1rem;
+  }
+  .terminalContainer {
+    margin: 0 1rem 1rem;
+    flex: none;
+    height: 40vh;
+  }
+}
